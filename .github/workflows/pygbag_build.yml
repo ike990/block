@@ -21,13 +21,24 @@ jobs:
         run: pip install pygame pygbag
         
       - name: Run pygbag build
-        # pygbagコマンドを実行
         run: python -m pygbag .
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
+        
+      # ★★★ Deploy to GitHub Pages ステップを削除 ★★★
+      
+      # ★★★ ここにファイルをアップロードするステップを追加 ★★★
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.DEPLOY_TOKEN }}
-          publish_dir: ./build/web 
-          # publish_branch: gh-pages # ★★★ この行を削除/コメントアウト ★★★
-          enable_jekyll: false
+          path: './build/web' # pygbagの出力フォルダを指定
+
+# ★★★ 最下部にデプロイを実行するジョブを追加 ★★★
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: [build-and-deploy]
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
