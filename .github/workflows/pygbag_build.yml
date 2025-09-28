@@ -1,0 +1,32 @@
+name: Build and Deploy Pygame to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # メインブランチにプッシュしたときに実行
+  workflow_dispatch: # Actionsタブから手動で実行できるようにする
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+          
+      - name: Install dependencies
+        run: pip install pygbag
+        
+      - name: Run pygbag build
+        # pygbagコマンドを実行してWebAssemblyファイルを作成
+        # 出力は 'build/web' フォルダに格納されます
+        run: python -m pygbag .
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build/web # ★ 公開するフォルダを指定
+          publish_branch: gh-pages # ★ 公開用ブランチ名
