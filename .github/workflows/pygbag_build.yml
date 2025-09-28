@@ -27,8 +27,11 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # ★★★ ここを修正 ★★★
+          github_token: ${{ secrets.DEPLOY_TOKEN }} # 作成したシークレット名に変更
+          # または personal_token: ${{ secrets.DEPLOY_TOKEN }} を使うこともできますが、
+          # github_tokenを使うほうが一般的です。
+          # --------------------
           publish_dir: ./build/web 
           publish_branch: gh-pages
-          # ★★★ 追加する行: Jekyllを明示的に無効化 ★★★
           enable_jekyll: false 
