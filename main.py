@@ -3,6 +3,8 @@ import sys
 import asyncio
 import os # ファイルパスチェック用に追加
 
+os.environ["SDL_VIDEODRIVER"] = "dummy"
+
 # 日本語フォントの設定（ローカル環境からの相対パスを推奨）
 FONT_FILE = "NotoSansJP-VariableFont_wght.ttf" 
 
