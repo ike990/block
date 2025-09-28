@@ -17,11 +17,11 @@ jobs:
           python-version: '3.x'
           
       - name: Install dependencies
-        run: pip install pygbag
+        # Pygameとpygbagを同時にインストールし、環境を確実にします
+        run: pip install pygame pygbag
         
       - name: Run pygbag build
-        # pygbagコマンドを実行してWebAssemblyファイルを作成
-        # 出力は 'build/web' フォルダに格納されます
+        # pygbagコマンドを実行
         run: python -m pygbag .
 
       - name: Deploy to GitHub Pages
