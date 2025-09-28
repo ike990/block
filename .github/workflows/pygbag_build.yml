@@ -28,5 +28,6 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build/web # ★ 公開するフォルダを指定
-          publish_branch: gh-pages # ★ 公開用ブランチ名
+          # ★★★ 修正が必要な行: デフォルトの './docs' から './build/web' に変更 ★★★
+          publish_dir: ./build/web 
+          publish_branch: gh-pages
