@@ -14,12 +14,12 @@ jobs:
       - name: Set up Python 3.11
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
-          cache: 'pip'
-          cache-key: ${{ runner.os }}-python-311-${{ hashFiles('**/main.py') }}
+          python-version: '3.11' # 安定版に固定
+          cache: 'pip' # requirements.txt を自動で探してキャッシュ
           
       - name: Install dependencies (pygame, pygbag)
-        run: pip install pygame pygbag
+        # requirements.txt が空でも、pip install は成功します
+        run: pip install -r requirements.txt pygame pygbag
         
       - name: Run pygbag build (Generates files in build/web)
         run: python -m pygbag .
@@ -36,7 +36,7 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: [build] # buildジョブの完了を待つ
-    # GitHub Pagesのトークン権限を設定
+    # GitHub Pagesのトークン権限を設定 (公式デプロイ用)
     permissions:
       pages: write
       id-token: write
