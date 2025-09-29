@@ -23,7 +23,7 @@ jobs:
           sudo apt-get update && sudo apt-get install -y ffmpeg
 
       - name: Run pygbag build (Generates files in build/web)
-        run: python -m pygbag . --build
+        run: python -m pygbag --build .
 
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
