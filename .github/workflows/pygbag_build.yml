@@ -15,11 +15,10 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11' # 安定版に固定
-          cache: 'pip' # requirements.txt を自動で探してキャッシュ
           
       - name: Install dependencies (pygame, pygbag)
         # requirements.txt が空でも、pip install は成功します
-        run: pip install -r requirements.txt pygame pygbag
+        run: pip install pygame pygbag
         
       - name: Run pygbag build (Generates files in build/web)
         run: python -m pygbag .
